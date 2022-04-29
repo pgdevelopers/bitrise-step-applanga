@@ -8,14 +8,14 @@
 # - Bitrise CLI guides: http://devcenter.bitrise.io/bitrise-cli/
 
 title: |-
-  Periphery Scan
+  Applanaga
 summary: |
-  A tool to identify unused code in Swift projects.
+  Bitrise step to utilize the Applanga cli tool.
 description: |
-  Uses Periphery to scan for unused code
-website: https://github.com/aarons22/bitrise-step-periphery-scan
-source_code_url: https://github.com/aarons22/bitrise-step-periphery-scan
-support_url: https://github.com/aarons22/bitrise-step-periphery-scan/issues
+  Bitrise step to utilize the Applanga cli tool.
+website: https://github.com/pgdevelopers/bitrise-step-applanga
+source_code_url: https://github.com/pgdevelopers/bitrise-step-applanga
+support_url: https://github.com/pgdevelopers/bitrise-step-applanga/issues
 host_os_tags:
   - osx-10.10
   - ubuntu-16.04
@@ -30,7 +30,7 @@ run_if: ""
 
 deps:
   brew:
-  - name: peripheryapp/periphery/periphery
+  - name: applanga
 
 toolkit:
   bash:
@@ -42,11 +42,31 @@ inputs:
       title: "Path to project folder"
       summary: ""
       is_required: true
-
-outputs:
-  - PERIPHERY_REPORT: null
+  - command: "push"
     opts:
-      title: "A Periphery report"
-      summary: The generated Periphery report. May be empty if the Periphery succeeded with 0 errors or warnings. This is useful when you want to pass it somewhere else, for example on a Slack channel.
-      description: The generated Periphery report. May be empty if the Periphery succeeded with 0 errors or warnings. This is useful when you want to pass it somewhere else, for example on a Slack channel.
-      is_dont_change_value: true
+      title: "Command"
+      summary: "What command to execute"
+      is_required: true
+      value_options:
+      - "push"
+      - "pushtarget"
+  - force: "false"
+    opts:
+      title: "Force"
+      summary: "If you want to push local changed files"
+      description: |
+        By default values only get pushed if they aren't existing already on the dashboard to make sure not to accidentally overwrite translations. 
+        If you want to push local changed files you can do so with the `--force option`. 
+        But be cautious that this might overwrite values set by a translator on the dashboard, so be sure to pull before you push.
+      value_options:
+      - "true"
+      - "false"
+  - draft: "false"
+    opts:
+      title: "Draft"
+      summary: "If you want to push values into that draft field to review"
+      description: |
+        You can push values into that draft field to review them on the dashboard before you release them with the `--draft` option.
+      value_options:
+      - "true"
+      - "false"

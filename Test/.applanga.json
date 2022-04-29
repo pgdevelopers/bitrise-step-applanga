@@ -1,0 +1,16 @@
+{
+  "app": {
+    "access_token": "12345",
+    "base_language": "en",
+    "push": {
+      "source": [
+        {
+          "file_format": "ios_strings",
+          "language": "en",
+          "path": "./ApplangaTest/en.lproj/*.strings",
+          "tag": "iOS"
+        }
+      ]
+    }
+  }
+}
