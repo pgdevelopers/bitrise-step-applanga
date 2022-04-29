@@ -1,0 +1,52 @@
+#
+# A couple of useful guides & docs:
+#
+# - Main Bitrise CLI docs: https://github.com/bitrise-io/bitrise/tree/master/_docs
+# - Step Development Guideline: https://github.com/bitrise-io/bitrise/blob/master/_docs/step-development-guideline.md
+# - Bitrise.yml format spec: https://github.com/bitrise-io/bitrise/blob/master/_docs/bitrise-yml-format-spec.md
+# - Bitrise docs: http://devcenter.bitrise.io/
+# - Bitrise CLI guides: http://devcenter.bitrise.io/bitrise-cli/
+
+title: |-
+  Periphery Scan
+summary: |
+  A tool to identify unused code in Swift projects.
+description: |
+  Uses Periphery to scan for unused code
+website: https://github.com/aarons22/bitrise-step-periphery-scan
+source_code_url: https://github.com/aarons22/bitrise-step-periphery-scan
+support_url: https://github.com/aarons22/bitrise-step-periphery-scan/issues
+host_os_tags:
+  - osx-10.10
+  - ubuntu-16.04
+project_type_tags:
+  - ios
+type_tags:
+  - utility
+is_requires_admin_user: true
+is_always_run: false
+is_skippable: false
+run_if: ""
+
+deps:
+  brew:
+  - name: peripheryapp/periphery/periphery
+
+toolkit:
+  bash:
+    entry_file: step.sh
+
+inputs:
+  - path_to_project: $BITRISE_SOURCE_DIR
+    opts:
+      title: "Path to project folder"
+      summary: ""
+      is_required: true
+
+outputs:
+  - PERIPHERY_REPORT: null
+    opts:
+      title: "A Periphery report"
+      summary: The generated Periphery report. May be empty if the Periphery succeeded with 0 errors or warnings. This is useful when you want to pass it somewhere else, for example on a Slack channel.
+      description: The generated Periphery report. May be empty if the Periphery succeeded with 0 errors or warnings. This is useful when you want to pass it somewhere else, for example on a Slack channel.
+      is_dont_change_value: true
